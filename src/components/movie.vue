@@ -1,27 +1,56 @@
 <template>
   <div class="Movie">
-    <div class="Movie__item" v-for="result in results" :key="result.id">
-      <div class="Movie__section Movie__section--number"><img :src="$url(result.author.avatar)"></div>
-      <div class="Movie__section Movie__section--preview">{{ result.location }}</div>
-      <div class="Movie__section Movie__section--info">{{ result.offer }}</div>
+    <router-link :to="{ name: 'movie-list'}">НАЗАД</router-link>
+    <div class="Movie__item">
+      <div class="Movie__section Movie__section--poster">
+        <img class="Movie__section--poster-image" :src="url + result.poster_path">
+      </div>
+      <div class="Movie__section Movie__section--info">
+        <ul>
+          <li>{{ result.title }}</li>
+          <li>{{ result.overview }}</li>
+          <li>{{ result.cast.join(', ') }}</li>
+          <li>{{ result.crew.join(', ') }}</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    computed: {
-      results() {
-        console.log(this.$store.state.results);
-        const collection = this.$store.state.results;
-        collection.map(function (ad, index) {
-          ad.id = index;
-          return ad;
-        });
-        console.log(collection);
-        return collection;
+  /*
+    import results from '../ads.js';
+    export default {
+      data: function() {
+        return {
+          results: results,
+          result: null
+        }
+      },
+      created: function() {
+        var resultId = this.$route.params.id
+        this.result = this.results[resultId]
       }
     }
+    */
+
+  export default {
+    data() {
+      const posterUrl = {url: 'https://image.tmdb.org/t/p/w500/'};
+      return posterUrl;
+    },
+    created: function () {
+      this.result = this.$route.params.item;
+    }
+    /*
+    created: function () {
+      const collection = this.$route.params.collection;
+      console.log(collection);
+      const movieId = this.$route.params.id;
+      this.result = collection[movieId];
+    }
+  }
+  */
   }
 
 </script>
@@ -32,13 +61,13 @@
     justify-content: space-around;
     align-items: center;
     width: 600px;
-    height: 200px;
+    min-height: 200px;
     background-color: brown;
   }
 
   .Movie__section {
     height: 190px;
-    background-color: white;
+    background-color: transparent;
   }
 
   .Movie__section--number {
@@ -51,6 +80,7 @@
 
   .Movie__section--info {
     width: 330px;
+    background-color: #fff;
   }
 
 </style>
