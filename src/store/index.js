@@ -76,7 +76,6 @@ const store = new Vuex.Store({
             throw error
           });
         })
-        console.log(state.data);
         commit('setResults', state.data);
       }, function (error) {
         throw error

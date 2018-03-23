@@ -1,10 +1,23 @@
 <template>
   <div id="app">
     <header>
-      <div>
-        <h1 class="title">Киновтопку</h1>
-        <img class="title__logo" src="./assets/popcorn.svg" alt="">
-      </div>
+      <section class="header">
+        <img class="header__logo" src="img/popcorn.svg" alt="">
+        <h1 class="header__title">
+          <span class="header__fire">К</span>
+          <span class="header__burn">и</span>
+          <span class="header__fire">н</span>
+          <span class="header__burn">о</span>
+          <span class="header__fire">в</span>
+          <span class="header__burn">т</span>
+          <span class="header__fire">о</span>
+          <span class="header__burn">п</span>
+          <span class="header__fire">к</span>
+          <span class="header__burn">у</span>
+        </h1>
+        <!--<img src="img/title.gif" alt="">-->
+        <p class="header__text">ТОП-10 самых низкорейтинговых фильмов  и сериалов</p>
+      </section>
     </header>
     <main>
       <router-view></router-view>
@@ -52,4 +65,4 @@
 
 </script>
 
-<style src="./assets/app.scss"></style>
+<!--<style src="./assets/app.scss"></style>-->

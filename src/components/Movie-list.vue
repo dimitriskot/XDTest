@@ -1,38 +1,49 @@
 <template>
-  <div class="Movie-list">
-    <select v-model="selected" v-on:change="typeChange" name="type" id="type">
+  <section class="media-list">
+    <select class="media-list__select--type" v-model="selected" v-on:change="typeChange" name="type" id="type">
       <option v-for="option in options" v-bind:value="option.value" :key="option.value">{{ option.text }}</option>
     </select>
-    <select v-on:change="typeChange" name="year" id="year">
+    <select class="media-list__select--year" v-on:change="typeChange" name="year" id="year">
       <option v-for="year in years" :key="year.value" v-bind:value="year.value">{{ year.text }}</option>
     </select>
-    <div class="Movie__item" v-if="results.length > 1" v-for="(result, index) in results" :key="result.id">
-      <router-link class="Movie__link" :to="{ name: 'movie', params: { item: result, id: index }}">
-        <div class="Movie__section Movie__section--poster">
-          <img class="Movie__section--poster-image" :src="posterUrl + result.poster_path">
-        </div>
-        <div class="Movie__section Movie__section--info">
-          <ul>
-            <li>{{ result.title ? result.title : result.name }}</li>
-            <li>{{ result.release_date ? result.release_date : result.first_air_date }}</li>
-            <li>{{ result.tagline }}</li>
-          </ul>
-        </div>
+    <article class="media-item" v-if="results.length > 1" v-for="(result, index) in results" :key="result.id">
+      <router-link class="media-item__link" :to="{ name: 'movie', params: { item: result, id: index }}">
+        <img class="media-item__poster" :src="result.poster_path ? posterUrl.url + result.poster_path : posterUrl.defaultUrl">
       </router-link>
-    </div>
-  </div>
+      <section class="media-item__info">
+        <p class="media-item__info media-item__info--title">
+          <router-link class="media-item__info media-item__info--link" :to="{ name: 'movie', params: { item: result, id: index }}">
+            {{ result.title ? result.title : result.name }}
+          </router-link>
+        </p>
+        <p class="media-item__info media-item__info--date">{{ result.release_date ? result.release_date : result.first_air_date }}</p>
+        <p class="media-item__info media-item__info--tagline">{{ result.tagline ? result.tagline : result.overview.slice(0, 30) + ' ...' }}</p>
+        <p class="media-item__info media-item__info--details">
+          <router-link class="media-item__info media-item__info--link" :to="{ name: 'movie', params: { item: result, id: index }}">
+            Подробнее
+          </router-link>
+        </p>
+      </section>
+    </article>
+  </section>
 </template>
 
 <script>
   export default {
     data() {
       const videoOptions = {
-          selected: 'movie',
-          options: [
-            { text: 'Фильмы', value: 'movie' },
-            { text: 'Сериалы', value: 'tv' }]
-        };
-        return videoOptions;
+        selected: 'movie',
+        options: [{
+            text: 'Фильмы',
+            value: 'movie'
+          },
+          {
+            text: 'Сериалы',
+            value: 'tv'
+          }
+        ]
+      };
+      return videoOptions;
     },
     methods: {
       typeChange() {
@@ -50,6 +61,7 @@
     },
     computed: {
       results() {
+        console.log(this.$store.state.results);
         const collection = this.$store.state.results;
         return collection.filter((element) => {
           return element !== null;
@@ -67,11 +79,13 @@
         return yearCollection;
       },
       posterUrl() {
-        const url = 'https://image.tmdb.org/t/p/w500/';
-        return url;
+        const posterUrl = {
+          url: 'https://image.tmdb.org/t/p/w500/',
+          defaultUrl: 'img/default.svg'
+        };
+        return posterUrl;
       }
     }
   }
-</script>
 
-<style src="../assets/movie-list.scss"></style>
+</script>

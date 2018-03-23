@@ -3,7 +3,7 @@
     <router-link :to="{ name: 'movie-list'}">НАЗАД</router-link>
     <div class="Movie__item">
       <div class="Movie__section Movie__section--poster">
-        <img class="Movie__section--poster-image" :src="url + result.poster_path">
+        <img class="Movie__section--poster-image" :src="result.poster_path ? url + result.poster_path : defaultUrl">
       </div>
       <div class="Movie__section Movie__section--info">
         <ul>
@@ -39,7 +39,10 @@
 
   export default {
     data() {
-      const posterUrl = {url: 'https://image.tmdb.org/t/p/w500/'};
+      const posterUrl = {
+        url: 'https://image.tmdb.org/t/p/w500/',
+        defaultUrl: 'img/default.svg'
+        };
       return posterUrl;
     },
     created: function () {
@@ -58,33 +61,3 @@
   }
 
 </script>
-
-<style lang="scss">
-  .Movie__item {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 600px;
-    min-height: 200px;
-    background-color: brown;
-  }
-
-  .Movie__section {
-    height: 190px;
-    background-color: transparent;
-  }
-
-  .Movie__section--number {
-    width: 100px;
-  }
-
-  .Movie__section--preview {
-    width: 150px;
-  }
-
-  .Movie__section--info {
-    width: 330px;
-    background-color: #fff;
-  }
-
-</style>
