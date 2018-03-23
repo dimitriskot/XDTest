@@ -4,42 +4,54 @@ import jsonp from 'jsonp';
 
 Vue.use(Vuex);
 
-function formatDate(date) {
-  let dd = date.getDate();
-  if (dd < 10) dd = '0' + dd;
-  let mm = date.getMonth();
-  if (mm < 10) mm = '0' + mm;
-  let yyyy = date.getFullYear();
-  return yyyy + '-' + mm + '-' + dd;
-};
-let tempDate = new Date();
-let currentDate = formatDate(tempDate);
-
 const store = new Vuex.Store({
   state: {
-    results: [],
-    credits: []
+    data: [],
+    results: []
   },
   mutations: {
     setData(state, data) {
       let collection = Array.from(data.results);
-      return state.results = collection.slice(0, 10);
+      return state.data = collection
+      .filter((element) => {
+        return element !== null;
+      })
+      .slice(0, 10)
+      .map((element, i, a) => {
+        let newElement = {};
+        newElement.id = element.id;
+        return element.id = newElement;
+      });
     },
-    setCredits(state, data) {
-      state.credits = data;
-      state.results.push(data);
+    setResults(state, data) {
+      setTimeout(() => {
+        state.results = data;
+      }, 2000);
     }
   },
   actions: {
     getData({
       commit,
       state
-    }) {
-      Vue.http.get('https://api.themoviedb.org/3/discover/movie?api_key=c361b616f937589e892b21f0789aa099&language=ru&sort_by=vote_average.asc&include_adult=false&include_video=false&page=1&primary_release_date.lte=' + currentDate).then(function (response) {
+    }, obj) {
+      console.log('https://api.themoviedb.org/3/discover/' + obj.type + '?api_key=c361b616f937589e892b21f0789aa099&language=en-US&sort_by=vote_average.asc&include_adult=false&include_video=false&page=1&' + obj.period);
+      Vue.http.get('https://api.themoviedb.org/3/discover/' + obj.type + '?api_key=c361b616f937589e892b21f0789aa099&language=en-US&sort_by=vote_average.asc&include_adult=false&include_video=false&page=1&' + obj.period).then(function (response) {
         commit('setData', response.data);
-        state.results.forEach(function (element) {
+        state.data.forEach(function (element) {
           let id = element.id;
-          Vue.http.get('https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=c361b616f937589e892b21f0789aa099').then(function (response) {
+          Vue.http.get('https://api.themoviedb.org/3/' + obj.type + '/' + id + '?api_key=c361b616f937589e892b21f0789aa099').then(function (response) {
+            element.first_air_date = response.data.first_air_date;
+            element.name = response.data.name;
+            element.overview = response.data.overview;
+            element.poster_path = response.data.poster_path;
+            element.release_date = response.data.release_date;
+            element.tagline = response.data.tagline;
+            element.title = response.data.title;
+            element.vote_average = response.data.vote_average;
+          }, function (error) {
+            throw error
+          });
+          Vue.http.get('https://api.themoviedb.org/3/' + obj.type + '/' + id + '/credits?api_key=c361b616f937589e892b21f0789aa099').then(function (response) {
             element.cast = response.data.cast
             .map((element) => {
               return element.order < 6 ? element.name : null;
@@ -56,14 +68,16 @@ const store = new Vuex.Store({
           }, function (error) {
             throw error
           });
-          Vue.http.get('https://api.themoviedb.org/3/movie/' + id + '/images?api_key=c361b616f937589e892b21f0789aa099').then(function (response) {
-            element.backdrops = response.data.backdrops
+          Vue.http.get('https://api.themoviedb.org/3/' + obj.type + '/' + id + '/images?api_key=c361b616f937589e892b21f0789aa099').then(function (response) {
+            element.backdrops = response.data.backdrops.map((element) => {
+              return element.file_path;
+            });
           }, function (error) {
             throw error
           });
         })
-        console.log(state.results);
-        // commit('setCredits', creditCollection);
+        console.log(state.data);
+        commit('setResults', state.data);
       }, function (error) {
         throw error
       });

@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var HtmlWebPackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: './src/main.js',
@@ -73,7 +74,7 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['*', '.js', '.vue', '.json']
+    extensions: ['*', '.html', '.js', '.vue', '.json']
   },
   devServer: {
     historyApiFallback: true,
@@ -103,6 +104,10 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
+    }),
+    new HtmlWebPackPlugin({
+      template: path.join(__dirname, 'src', 'index.html'),
+      hash: true
     })
   ])
 }

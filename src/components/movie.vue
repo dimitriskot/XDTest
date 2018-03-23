@@ -7,10 +7,13 @@
       </div>
       <div class="Movie__section Movie__section--info">
         <ul>
-          <li>{{ result.title }}</li>
+          <li>{{ result.title ? result.title : result.name }}</li>
           <li>{{ result.overview }}</li>
           <li>{{ result.cast.join(', ') }}</li>
           <li>{{ result.crew.join(', ') }}</li>
+          <li v-for="image in images" :key="image">
+            <img :src="url + image" alt="">
+          </li>
         </ul>
       </div>
     </div>
@@ -41,6 +44,7 @@
     },
     created: function () {
       this.result = this.$route.params.item;
+      this.images = this.$route.params.item.backdrops;
     }
     /*
     created: function () {
