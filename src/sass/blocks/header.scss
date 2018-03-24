@@ -1,0 +1,95 @@
+.header {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.header__logo {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+}
+
+.header__title {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  margin-bottom: 35px;
+  padding: 0;
+  justify-content: center;
+  font-size: 40px;
+  line-height: 40px;
+  letter-spacing: -2px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: rgb(0, 0, 0);
+}
+
+.header__fire {
+  animation: animation 1s ease-in-out infinite alternate;
+}
+
+.header__burn {
+  animation: animation .65s ease-in-out infinite alternate;
+}
+
+@keyframes animation {
+  0% {
+    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
+  }
+  100% {
+    text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #fefcc9, -20px -20px 40px #feec85, 22px -42px 60px #ffae34, -22px -58px 50px #ec760c, 0 -82px 80px #cd4606, 10px -90px 80px #973716;
+  }
+}
+
+.header__text {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: linear-gradient(to bottom, rgb(255, 0, 0) 33%, rgb(255, 196, 0) 66%, rgb(255, 114, 58));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: rgb(255, 114, 58);
+}
+
+@media (min-width: $tablet-width) {
+  .header__title {
+    margin-bottom: 15px;
+  }
+  .header__text {
+    font-size: 19px;
+  }
+}
+
+@media (min-width: $desktop-width) {
+  .header__logo {
+    width: 300px;
+  }
+  
+  .header__title {
+    margin-bottom: 35px;
+    font-size: 55px;
+    line-height: 55px;
+    letter-spacing: 0;
+  }
+
+  @keyframes animation {
+    0% {
+      text-shadow: 0 0 40px #fefcc9, 20px -20px 60px #feec85, -40px -40px 80px #ffae34, 40px -80px 100px #ec760c, -40px -120px 120px #cd4606, 0 -160px 140px #973716, 20px -180px 160px #451b0e;
+    }
+    100% {
+      text-shadow: 0 0 40px #fefcc9, 20px -20px 60px #fefcc9, -40px -40px 80px #feec85, 44px -84px 120px #ffae34, -44px -116px 100px #ec760c, 0 -164px 160px #cd4606, 20px -180px 160px #973716;
+    }
+  }
+  .header__text {
+    font-size: 25px;
+  }
+}
