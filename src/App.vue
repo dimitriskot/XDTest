@@ -1,27 +1,39 @@
 <template>
   <div id="app">
     <header>
-      <section class="header">
-        <img class="header__logo" src="img/popcorn.svg" alt="">
-        <h1 class="header__title">
-          <span class="header__fire">К</span>
-          <span class="header__burn">и</span>
-          <span class="header__fire">н</span>
-          <span class="header__burn">о</span>
-          <span class="header__fire">в</span>
-          <span class="header__burn">т</span>
-          <span class="header__fire">о</span>
-          <span class="header__burn">п</span>
-          <span class="header__fire">к</span>
-          <span class="header__burn">у</span>
-        </h1>
-        <!--<img src="img/title.gif" alt="">-->
-        <p class="header__text">ТОП-10 самых низкорейтинговых фильмов  и сериалов</p>
-      </section>
+      <div class="wrapper">
+        <section class="header">
+          <img class="header__logo" src="img/popcorn.svg" alt="">
+          <h1 class="header__title">
+            <span class="header__fire">К</span>
+            <span class="header__burn">и</span>
+            <span class="header__fire">н</span>
+            <span class="header__burn">о</span>
+            <span class="header__fire">в</span>
+            <span class="header__burn">т</span>
+            <span class="header__fire">о</span>
+            <span class="header__burn">п</span>
+            <span class="header__fire">к</span>
+            <span class="header__burn">у</span>
+          </h1>
+          <p class="header__text">ТОП-10 самых низкорейтинговых фильмов и сериалов</p>
+        </section>
+      </div>
     </header>
     <main>
-      <router-view></router-view>
+      <div class="wrapper">
+        <router-view></router-view>
+      </div>
     </main>
+    <footer>
+      <section class="footer">
+        <div class="wrapper">
+          <p class="footer__text">This product uses the TMDb API but is not endorsed or certified by TMDb.</p>
+          <p class="footer__text">
+            <a class="footer__link" href="https://codepen.io/atnyman/pen/cgGuL" target="_blank">Animated fire text-shadow</a> used from Antti Nyman's pen</p>
+        </div>
+      </section>
+    </footer>
   </div>
 </template>
 
@@ -29,8 +41,8 @@
   import Vue from 'vue';
   import VueRouter from 'vue-router';
   import VueResource from 'vue-resource';
-  import MovieList from './components/Movie-list.vue';
-  import Movie from './components/Movie.vue';
+  import MediaList from './components/Media-list.vue';
+  import Media from './components/Media.vue';
   import store from './store/index.js';
 
   Vue.use(VueRouter);
@@ -38,14 +50,14 @@
 
   const router = new VueRouter({
     routes: [{
-        path: '',
-        name: 'movie-list',
-        component: MovieList
+        path: '/',
+        name: 'media-list',
+        component: MediaList
       },
       {
-        path: '/movie/:id',
-        name: 'movie',
-        component: Movie
+        path: '/media/:id',
+        name: 'media',
+        component: Media
       }
     ]
   });
@@ -64,5 +76,3 @@
   }
 
 </script>
-
-<!--<style src="./assets/app.scss"></style>-->

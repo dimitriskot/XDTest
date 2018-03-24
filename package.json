@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "build": "gulp build",
     "dev": "gulp dev"
   },
   "dependencies": {

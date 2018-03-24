@@ -17,10 +17,14 @@ const store = new Vuex.Store({
         return element !== null;
       })
       .slice(0, 10)
-      .map((element, i, a) => {
+      .map((element) => {
         let newElement = {};
         newElement.id = element.id;
         return element.id = newElement;
+      })
+      .map(function (el, index) {
+        el.rank = index + 1;
+        return el;
       });
     },
     setResults(state, data) {

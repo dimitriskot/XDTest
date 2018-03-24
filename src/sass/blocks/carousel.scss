@@ -1,0 +1,138 @@
+.slider_case {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+}
+
+.v_slider {
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.v_slider__list {
+  width: 100%;
+  display: block;
+  position: relative;
+}
+
+.v_slider__item {
+  width: 280px;
+  height: auto;
+  margin: 0 auto;
+  float: left;
+  backface-visibility: hidden;
+  -webkit-touch-callout: none;
+}
+
+.v_slider__item.clone {
+  z-index: 2;
+}
+
+.v_slider__track {
+  position: relative;
+  backface-visibility: hidden;
+  -ms-touch-action: pan-Y;
+}
+
+.v_slider__track:after {
+  content: "";
+  position: absolute;
+  display: block;
+  clear: both;
+}
+
+/*
+.v_slider__dots {
+  width: 100%;
+  float: left;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.v_slider__dots li {
+  padding: 8px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.v_slider__dots li span {
+  width: 8px;
+  height: 8px;
+  background: #dde2e6;
+  float: left;
+  border-radius: 50%;
+}
+
+.v_slider__dots li span:hover {
+  background: #fac301;
+}
+
+.v_slider__dots li.active span {
+  background: #ff3f4d;
+}
+*/
+
+.v_slider__prev,
+.v_slider__next {
+  position: absolute;
+  top: 0;
+  width: 25px;
+  height: 97%;
+  outline: none;
+  background: rgba(117, 117, 117, 0.5);
+  border: none;
+  opacity: 0.9;
+}
+
+.v_slider__prev {
+  left: 0;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-style: solid;
+    border-width: 20px 10px 20px 0;
+    border-color: transparent rgb(206, 206, 206) transparent transparent;
+  }
+}
+
+.v_slider__next {
+  right: 0;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-style: solid;
+    border-width: 20px 0 20px 10px;
+    border-color: transparent transparent transparent rgb(206, 206, 206);
+  }
+}
+
+.v_slider__prev:hover,
+.v_slider__next:hover {
+  border-color: #04a0c5;
+  color: #04a0c5;
+  cursor: pointer;
+}
+
+@media (min-width: $tablet-width) {
+  .slider_case {
+    margin-top: 20px;
+  }
+}
