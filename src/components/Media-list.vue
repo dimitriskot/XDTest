@@ -62,7 +62,6 @@
     computed: {
       // возврат информации о фильме из хранилища
       results() {
-        console.log(this.$store.state.results);
         const collection = this.$store.state.results;
         return collection.filter((element) => {
           return element !== null;
