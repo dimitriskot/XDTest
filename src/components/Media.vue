@@ -10,9 +10,9 @@
           <p class="media-card__text media-card__text--title">Полное описание</p>
           <p class="media-card__text">{{ result.overview }}</p>
           <p class="media-card__text media-card__text--title">В ролях</p>
-          <p class="media-card__text">{{ result.cast.length > 0 ? result.cast.join(', ') : noInfo }}</p>
+          <p class="media-card__text">{{ result.cast.length > 0 ? result.cast.join(', ') : 'No information' }}</p>
           <p class="media-card__text media-card__text--title">Создатели</p>
-          <p class="media-card__text">{{ result.crew.length > 0 ? result.crew.join(', ') : noInfo }}</p>
+          <p class="media-card__text">{{ result.crew.length > 0 ? result.crew.join(', ') : 'No information' }}</p>
         </section>
         <ul class="slider_case">
           <v-slider v-if="images.length > 0" v-bind="options">
@@ -31,6 +31,7 @@
 
   export default {
     name: 'main-slider',
+    // данные для модуля "slider"
     data() {
       const options = {
         items: 5,
@@ -61,10 +62,7 @@
       'v-slider': slider,
     },
     computed: {
-      noInfo() {
-        const noInfo = 'Нет информации';
-        return noInfo;
-      },
+      // возврат объекта с URL изображений
       posterUrl() {
         const posterUrl = {
           url: 'https://image.tmdb.org/t/p/w500/',
@@ -72,6 +70,7 @@
         };
         return posterUrl;
       },
+      // возврат опций для модуля "slider"
       options() {
         const options = {
           items: 5,
@@ -99,6 +98,7 @@
         return options;
       }
     },
+    // создание объектов с данными о фильме
     created: function () {
       this.result = this.$route.params.item;
       this.images = this.$route.params.item.backdrops;

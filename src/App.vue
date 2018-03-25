@@ -69,7 +69,6 @@
         type: 'movie',
         period: 'year=2017'
       });
-      // this.$store.dispatch('getCredits');
     },
     router,
     store
